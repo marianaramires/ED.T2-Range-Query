@@ -27,7 +27,6 @@ typedef struct _tlista{
 void lst_insere(tlista **cabeca, void *reg);
 
 /* AVL */
-typedef int titem;
 
 typedef struct _node{
     tlista *lista;
@@ -44,6 +43,7 @@ typedef struct _tarv{
 
 void avl_constroi(tarv *parv, double (*cmp)(void *, void *));
 void avl_insere(tarv *parv, tnode ** ppnode, tnode *pai, void *reg);
+tnode ** avl_sucessor(tnode **ppnode);
 void avl_destroi(tnode * parv);
 
 void _rd(tnode ** pparv);

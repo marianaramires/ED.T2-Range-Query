@@ -111,6 +111,21 @@ tnode ** percorre_esq(tnode ** arv){
     }
 }
 
+/* tree-sucessor do cormen */
+tnode ** avl_sucessor(tnode **x){
+    if((*x)->dir != NULL){
+        return percorre_esq(&(*x)->dir);
+    }
+
+    tnode *y = (*x)->pai;
+    while (y != NULL && *x == y->dir){
+        *x = y;
+        y = y->pai;
+    }
+
+    return &(*x)->pai;
+}
+
 void avl_destroi(tnode *parv){
     if (parv!=NULL){
         avl_destroi(parv->esq);
