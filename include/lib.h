@@ -18,7 +18,37 @@ typedef struct _municipio
     char fuso_horario[40];
 } tmunicipio;
 
+/* LISTA ENCADEADA */
+typedef struct _tlista{
+    void *reg;
+    struct _tlista *prox;
+}tlista;
+
+void lst_insere(tlista **cabeca, void *reg);
+
 /* AVL */
+typedef int titem;
+
+typedef struct _node{
+    tlista *lista;
+    struct _node *pai;
+    struct _node *esq;
+    struct _node *dir;
+    int h;
+}tnode;
+
+typedef struct _tarv{
+    tnode *raiz;
+    double (*cmp)(void * , void *);
+} tarv;
+
+void avl_constroi(tarv *parv, double (*cmp)(void *, void *));
+void avl_insere(tarv *parv, tnode ** ppnode, tnode *pai, void *reg);
+void avl_destroi(tnode * parv);
+
+void _rd(tnode ** pparv);
+void _re(tnode ** pparv);
+void _avl_rebalancear(tnode ** pparv);
 
 /* HASH */
 typedef struct
