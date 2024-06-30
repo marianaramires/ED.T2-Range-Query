@@ -113,10 +113,10 @@ int main()
                                         0, 0, ddd, ""));
     }
 
-    tmunicipio *search = hash_busca(h, "5002704");
-    municipio_printa(*search);
+    //tmunicipio *search = hash_busca(h, "5002704");
+    //municipio_printa(*search);
 
-    printf("RAIZ NOME\n");
+    /*printf("RAIZ NOME\n");
     municipio_printa((*((tmunicipio *)arv_nome.raiz->lista->reg)));
     printf("RAIZ LAT\n");
     municipio_printa((*((tmunicipio *)arv_lat.raiz->lista->reg)));
@@ -125,7 +125,22 @@ int main()
     printf("RAIZ COD\n");
     municipio_printa((*((tmunicipio *)arv_cod.raiz->lista->reg)));
     printf("RAIZ DDD\n");
-    municipio_printa((*((tmunicipio *)arv_ddd.raiz->lista->reg)));
+    municipio_printa((*((tmunicipio *)arv_ddd.raiz->lista->reg)));*/
+
+    printf("OI\n");
+    tmunicipio * busca67 = aloca_municipio("", "", 0, 0, 0,0, 0, 67, "");
+    tmunicipio * busca68 = aloca_municipio("", "", 0, 0, 0,0, 0, 68, "");
+    tlista * ans = range_query(&arv_ddd, &arv_ddd.raiz, busca67, busca68);
+    printf("MAIN\n");
+    tlista * imprime = ans;
+    int i = 1;
+    while (imprime->prox != NULL)
+    {
+        municipio_printa((*((tmunicipio *)imprime->reg)));
+        imprime = imprime->prox;
+        printf("%d\n", i++);
+    }
+    municipio_printa((*((tmunicipio *)imprime->reg)));
 
     fclose(arq);
     free(h.table);

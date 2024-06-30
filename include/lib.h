@@ -44,6 +44,8 @@ typedef struct _tarv{
 void avl_constroi(tarv *parv, double (*cmp)(void *, void *));
 void avl_insere(tarv *parv, tnode ** ppnode, tnode *pai, void *reg);
 tnode ** avl_sucessor(tnode **ppnode);
+tnode * avl_busca(tarv *parv, tnode **ppnode, void *busca);
+tlista * range_query(tarv *parv, tnode **ppnode, void *busca1, void *busca2);
 void avl_destroi(tnode * parv);
 
 void _rd(tnode ** pparv);
