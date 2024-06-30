@@ -93,9 +93,9 @@ int hash_constroi(thash *h, int nbuckets, char *(*get_key)(void *))
 
 void municipio_printa(tmunicipio municipio)
 {
-    printf("%-12s | %-30s | %-10s | %-10s | %-6s | %-3s | %-5s | %-3s | %-3s\n",
-           "Codigo IBGE", "Nome", "Latitude", "Longitude",
-           "Capital", "Codigo UF", "ID SIAFI", "DDD", "Fuso Horario");
+    // printf("%-12s | %-30s | %-10s | %-10s | %-6s | %-3s | %-5s | %-3s | %-3s\n",
+    //        "Codigo IBGE", "Nome", "Latitude", "Longitude",
+    //        "Capital", "Codigo UF", "ID SIAFI", "DDD", "Fuso Horario");
 
     printf("%-12s | %-30s | %-10f | %-10f | %-6d | %-3d | %-5d | %-3d | %-3s\n",
            municipio.codigo_ibge, municipio.nome, municipio.latitude,

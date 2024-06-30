@@ -40,8 +40,6 @@ int main()
     FILE *arq;
     arq = fopen("municipios.json", "r");
     char busca[8];
-    int condicao = -1;
-    int vizinhos;
 
     /* avl */
     tarv arv_nome, arv_lat, arv_long, arv_cod, arv_ddd;
@@ -50,6 +48,14 @@ int main()
     avl_constroi(&arv_long, cmp_long);
     avl_constroi(&arv_cod, cmp_cod);
     avl_constroi(&arv_ddd, cmp_ddd);
+
+    /* variaveis interface */
+    int condicao = -1;
+    char min_nome[50], max_nome[50];
+    float min_lat, max_lat, min_long, max_long;
+    int min_cod, max_cod, min_ddd, max_ddd;
+    int flag[5];
+    tlista *lstnome, *lstlat, *lstlong, *lstcod, *lstddd;
 
     fgets(c, 100, arq); // lixo
     while (!feof(arq))
@@ -113,34 +119,105 @@ int main()
                                         0, 0, ddd, ""));
     }
 
-    //tmunicipio *search = hash_busca(h, "5002704");
-    //municipio_printa(*search);
-
-    /*printf("RAIZ NOME\n");
-    municipio_printa((*((tmunicipio *)arv_nome.raiz->lista->reg)));
-    printf("RAIZ LAT\n");
-    municipio_printa((*((tmunicipio *)arv_lat.raiz->lista->reg)));
-    printf("RAIZ LONG\n");
-    municipio_printa((*((tmunicipio *)arv_long.raiz->lista->reg)));
-    printf("RAIZ COD\n");
-    municipio_printa((*((tmunicipio *)arv_cod.raiz->lista->reg)));
-    printf("RAIZ DDD\n");
-    municipio_printa((*((tmunicipio *)arv_ddd.raiz->lista->reg)));*/
-
-    printf("OI\n");
-    tmunicipio * busca67 = aloca_municipio("", "", 0, 0, 0,0, 0, 67, "");
-    tmunicipio * busca68 = aloca_municipio("", "", 0, 0, 0,0, 0, 68, "");
-    tlista * ans = range_query(&arv_ddd, &arv_ddd.raiz, busca67, busca68);
-    printf("MAIN\n");
-    tlista * imprime = ans;
-    int i = 1;
-    while (imprime->prox != NULL)
+    while (condicao != 0)
     {
-        municipio_printa((*((tmunicipio *)imprime->reg)));
-        imprime = imprime->prox;
-        printf("%d\n", i++);
+        printf("___________________________________________________________________________\n");
+        printf("1 - Nova Consulta\n");
+        printf("0 - Sair\n");
+        scanf("%d", &condicao);
+
+        switch (condicao)
+        {
+        case 1:
+            printf("___________________________________________________________________________\n");
+            printf("* Para buscar valores iguais, digite o mesmo valor duas vezes.\n");
+            printf("Exemplo: Cidades com DDD == 67. Digite MIN: 67 e MAX: 67 *\n");
+
+            printf("\nConsultar por NOME?\n");
+            printf("1: Sim\n0: Não\n");
+            scanf("%d", &flag[0]);
+            if(flag[0] == 1){
+                printf("MIN: ");
+                scanf(" %[^\n]s", min_nome);
+                printf("MAX: ");
+                scanf(" %[^\n]s", max_nome);
+                tmunicipio * bmin_nome = aloca_municipio("", min_nome, 0, 0, 0, 0, 0, 0, "");
+                tmunicipio * bmax_nome = aloca_municipio("", max_nome, 0, 0, 0, 0, 0, 0, "");
+                lstnome = range_query(&arv_nome, &arv_nome.raiz, bmin_nome, bmax_nome);
+            } else{
+                lstnome = NULL;
+            }
+
+            printf("\nConsultar por LATITUDE?\n");
+            printf("1: Sim\n0: Não\n");
+            scanf("%d", &flag[1]);
+            if(flag[1] == 1){
+                printf("MIN: ");
+                scanf("%f", &min_lat);
+                printf("MAX: ");
+                scanf("%f", &max_lat);
+            } else{
+                lstlat = NULL;
+            }
+
+            printf("\nConsultar por LONGITUDE?\n");
+            printf("1: Sim\n0: Não\n");
+            scanf("%d", &flag[2]);
+            if(flag[2] == 1){
+                printf("MIN: ");
+                scanf("%f", &min_long);
+                printf("MAX: ");
+                scanf("%f", &max_long);
+            } else{
+                lstlong = NULL;
+            }
+
+            printf("\nConsultar por CÓDIGO DE UF?\n");
+            printf("1: Sim\n0: Não\n");
+            scanf("%d", &flag[3]);
+            if(flag[3] == 1){
+                printf("MIN: ");
+                scanf("%d", &min_cod);
+                printf("MAX: ");
+                scanf("%d", &max_cod);
+
+                tmunicipio * bmin_cod = aloca_municipio("", "", 0, 0, 0, min_cod, 0, 0, "");
+                tmunicipio * bmax_cod = aloca_municipio("", "", 0, 0, 0, max_cod, 0, 0, "");
+                lstcod = range_query(&arv_cod, &arv_cod.raiz, bmin_cod, bmax_cod);
+            } else{
+                lstcod = NULL;
+            }
+
+            printf("\nConsultar por DDD?\n");
+            printf("1: Sim\n0: Não\n");
+            scanf("%d", &flag[4]);
+            if(flag[4] == 1){
+                printf("MIN: ");
+                scanf("%d", &min_ddd);
+                printf("MAX: ");
+                scanf("%d", &max_ddd);
+
+                tmunicipio * bmin_ddd = aloca_municipio("", "", 0, 0, 0, 0, 0, min_ddd, "");
+                tmunicipio * bmax_ddd = aloca_municipio("", "", 0, 0, 0, 0, 0, max_ddd, "");
+                lstddd = range_query(&arv_ddd, &arv_ddd.raiz, bmin_ddd, bmax_ddd);
+            } else{
+                lstddd = NULL;
+            }
+
+            printf("\n--- CIDADES ENCONTRADAS ---\n");
+            tlista * resul1 = lst_interseccao(lstnome, lstlat);
+            tlista * resul2 = lst_interseccao(resul1, lstlong);
+            tlista * resul3 = lst_interseccao(resul2, lstcod);
+            tlista * resul = lst_interseccao(resul3, lstddd);
+            lst_imprime(resul, h);
+            break;
+        case 0:
+            break;
+        default:
+            printf("Essa não é uma opção válida, digite novamente");
+            break;
+        }
     }
-    municipio_printa((*((tmunicipio *)imprime->reg)));
 
     fclose(arq);
     free(h.table);

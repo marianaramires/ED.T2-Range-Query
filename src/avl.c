@@ -86,17 +86,25 @@ tlista *range_query(tarv *parv, tnode **ppnode, void *busca1, void *busca2)
     while (parv->cmp(atual, busca2) <= 0)
     {
         resulbusca = avl_busca(parv, ppnode, atual);
-        municipio_printa((*((tmunicipio *)resulbusca->lista->reg)));
-
-        proxno = resulbusca->lista;
-        while (proxno->prox != NULL)
+        if (resulbusca != NULL)
         {
-            lst_insere(&resul, proxno->reg);
-            proxno = proxno->prox;
-        }
-        lst_insere(&resul, proxno->reg);
+            //municipio_printa((*((tmunicipio *)resulbusca->lista->reg)));
 
-        atual = (*avl_sucessor(&resulbusca))->lista->reg;
+            proxno = resulbusca->lista;
+            while (proxno->prox != NULL)
+            {
+                lst_insere(&resul, proxno->reg);
+                proxno = proxno->prox;
+            }
+            lst_insere(&resul, proxno->reg);
+
+            atual = (*avl_sucessor(&resulbusca))->lista->reg;
+            if((*avl_sucessor(&resulbusca)) == NULL){
+                break;
+            }
+        } else{
+            break;
+        }
     }
 
     return resul;
