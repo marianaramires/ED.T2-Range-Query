@@ -19,7 +19,7 @@ double cmp_long(void *a, void *b){
 }
 
 double cmp_cod(void *a, void *b){
-    return ((*((tmunicipio *)a)).codigo_ibge - (*((tmunicipio *)b)).codigo_ibge);
+    return ((*((tmunicipio *)a)).codigo_uf - (*((tmunicipio *)b)).codigo_uf);
 }
 
 double cmp_ddd(void *a, void *b){
@@ -101,16 +101,16 @@ int main()
 
         hash_insere(&h, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
                                         codigo_uf, siafi_id, ddd, fuso_horario));
-        avl_insere(&arv_nome, &arv_nome.raiz, NULL, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
-                                        codigo_uf, siafi_id, ddd, fuso_horario));
-        avl_insere(&arv_lat, &arv_lat.raiz, NULL, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
-                                        codigo_uf, siafi_id, ddd, fuso_horario));
-        avl_insere(&arv_long, &arv_long.raiz, NULL, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
-                                        codigo_uf, siafi_id, ddd, fuso_horario));
-        avl_insere(&arv_cod, &arv_cod.raiz, NULL, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
-                                        codigo_uf, siafi_id, ddd, fuso_horario));
-        avl_insere(&arv_ddd, &arv_ddd.raiz, NULL, aloca_municipio(codigo_ibge, nome, latitude, longitude, capital,
-                                        codigo_uf, siafi_id, ddd, fuso_horario));
+        avl_insere(&arv_nome, &arv_nome.raiz, NULL, aloca_municipio(codigo_ibge, nome, 0, 0, 0,
+                                        0, 0, 0, ""));
+        avl_insere(&arv_lat, &arv_lat.raiz, NULL, aloca_municipio(codigo_ibge, "", latitude, 0, 0,
+                                        0, 0, 0, ""));
+        avl_insere(&arv_long, &arv_long.raiz, NULL, aloca_municipio(codigo_ibge, "", 0, longitude, 0,
+                                        0, 0, 0, ""));
+        avl_insere(&arv_cod, &arv_cod.raiz, NULL, aloca_municipio(codigo_ibge, "", 0, 0, 0,
+                                        codigo_uf, 0, 0, ""));
+        avl_insere(&arv_ddd, &arv_ddd.raiz, NULL, aloca_municipio(codigo_ibge, "", 0, 0, 0,
+                                        0, 0, ddd, ""));
     }
 
     tmunicipio *search = hash_busca(h, "5002704");
