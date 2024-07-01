@@ -1,8 +1,7 @@
 # Trabalho-2
 Estudante: Mariana Gonzaga Ramires  
 Professor: Edson Takashi Matsubara  
-Ciência da Computacação  
-UFMS  
+Ciência da Computacação - UFMS  
 2024.1  
 
 Considerando a base dados do trabalho anterior do IBGE de cidades (https://github.com/kelvins/municipios-brasileiros/blob/main/json/municipios.json), com esta estrutura adaptada você conseguirá fazer buscas por intervalos. Por exemplo retornar todas as cidades que possuem DDD entre 15 e 20. Retornar todas as cidades que possuem latitude entre -31 e -34 e longitude entre - 50 e -54, ou mesmo fazer combinações entre latitude, longitude e DDD. 
@@ -21,5 +20,6 @@ Descrição:  Considere as seguintes três queries: (1) cidades com latitude > 5
 ## Tarefa 4: Interface
 Faça uma interface para que seja possível fazer range queries e combinação de range queries com qualquer um dos cinco campos definidos na tarefa 2. A busca deve retornar todos do campos das cidades fornecidas na base de dados. Para a busca das cidades pelo código IBGE você deve utilizar uma tabela hash.  
 
-
-
+### Como compilar o código
+Windows: Execute o arquivo compila.bat  
+Linux: Execute o arquivo compila.sh
