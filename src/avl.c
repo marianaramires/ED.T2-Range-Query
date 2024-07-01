@@ -88,12 +88,12 @@ tlista *range_query(tarv *parv, tnode **ppnode, void *busca1, void *busca2)
         resulbusca = avl_busca(parv, ppnode, atual);
         if (resulbusca != NULL)
         {
-            //municipio_printa((*((tmunicipio *)resulbusca->lista->reg)));
 
             proxno = resulbusca->lista;
             while (proxno->prox != NULL)
             {
                 lst_insere(&resul, proxno->reg);
+                municipio_printa((*((tmunicipio *)proxno->reg)));
                 proxno = proxno->prox;
             }
             lst_insere(&resul, proxno->reg);
@@ -121,6 +121,13 @@ void _rd(tnode **parv)
     y->esq = B;
     x->dir = y;
     *parv = x;
+
+    if (B != NULL) {
+        B->pai = y;
+    }
+    x->pai = y->pai;
+    y->pai = x;
+
     y->h = max(altura(B), altura(C)) + 1;
     x->h = max(altura(A), altura(y)) + 1;
 }
@@ -136,6 +143,13 @@ void _re(tnode **parv)
     x->dir = B;
     y->esq = x;
     *parv = y;
+
+    if (B != NULL) {
+        B->pai = x;
+    }
+    y->pai = x->pai;
+    x->pai = y;
+
     x->h = max(altura(A), altura(B)) + 1;
     y->h = max(altura(x), altura(C)) + 1;
 }

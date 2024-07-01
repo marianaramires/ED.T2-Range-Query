@@ -11,19 +11,19 @@ double cmp_nome(void *a, void *b){
 }
 
 double cmp_lat(void *a, void *b){
-    return ((*((tmunicipio *)a)).latitude - (*((tmunicipio *)b)).latitude);
+    return ((tmunicipio *)a)->latitude - ((tmunicipio *)b)->latitude;
 }
 
 double cmp_long(void *a, void *b){
-    return ((*((tmunicipio *)a)).longitude - (*((tmunicipio *)b)).longitude);
+    return ((tmunicipio *)a)->longitude - ((tmunicipio *)b)->longitude;
 }
 
 double cmp_cod(void *a, void *b){
-    return ((*((tmunicipio *)a)).codigo_uf - (*((tmunicipio *)b)).codigo_uf);
+    return ((tmunicipio *)a)->codigo_uf - ((tmunicipio *)b)->codigo_uf;
 }
 
 double cmp_ddd(void *a, void *b){
-    return ((*((tmunicipio *)a)).ddd - (*((tmunicipio *)b)).ddd);
+    return ((tmunicipio *)a)->ddd - ((tmunicipio *)b)->ddd;
 }
 
 int main()
@@ -156,6 +156,9 @@ int main()
                 scanf("%f", &min_lat);
                 printf("MAX: ");
                 scanf("%f", &max_lat);
+                tmunicipio * bmin_lat = aloca_municipio("", "", min_lat, 0, 0, 0, 0, 0, "");
+                tmunicipio * bmax_lat = aloca_municipio("", "", max_lat, 0, 0, 0, 0, 0, "");
+                lstlat = range_query(&arv_lat, &arv_lat.raiz, bmin_lat, bmax_lat);
             } else{
                 lstlat = NULL;
             }
@@ -168,6 +171,9 @@ int main()
                 scanf("%f", &min_long);
                 printf("MAX: ");
                 scanf("%f", &max_long);
+                tmunicipio * bmin_long = aloca_municipio("", "", 0, 0, min_long, 0, 0, 0, "");
+                tmunicipio * bmax_long = aloca_municipio("", "", 0, 0, max_long, 0, 0, 0, "");
+                lstlong = range_query(&arv_lat, &arv_lat.raiz, bmin_long, bmax_long);
             } else{
                 lstlong = NULL;
             }
@@ -210,6 +216,7 @@ int main()
             tlista * resul3 = lst_interseccao(resul2, lstcod);
             tlista * resul = lst_interseccao(resul3, lstddd);
             lst_imprime(resul, h);
+
             break;
         case 0:
             break;
