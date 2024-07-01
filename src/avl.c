@@ -93,7 +93,6 @@ tlista *range_query(tarv *parv, tnode **ppnode, void *busca1, void *busca2)
             while (proxno->prox != NULL)
             {
                 lst_insere(&resul, proxno->reg);
-                municipio_printa((*((tmunicipio *)proxno->reg)));
                 proxno = proxno->prox;
             }
             lst_insere(&resul, proxno->reg);
